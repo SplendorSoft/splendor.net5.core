@@ -1,2 +1,2 @@
-# splendor.basenet5.core
+# splendor.net5.core
 Libreria que establece una linea base para la arquitectura de proyectos Net 5
