@@ -51,6 +51,6 @@ namespace splendor.net5.core
         /// </summary>
         /// <param name="entity">E entity instance</param>
         /// <returns>true or false</returns>
-        Task<bool> Exists(E entity);
+        Task<bool> Exists(E entity) => Task.FromResult(false);
     }
 }
