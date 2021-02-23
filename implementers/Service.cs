@@ -31,6 +31,7 @@ namespace splendor.net5.core.implementers
             _repository = _serviceProvider.GetService(typeof(IRepository<E, K>)) as IRepository<E, K>;
             _tracer = _serviceProvider.GetService(typeof(DefaultTracer)) as ITracer;
             _transaction = _serviceProvider.GetService(typeof(TSTransaction)) as ITransaction;
+            ValidateDependencyInjection(typeof(DefaultTracer), typeof(TSTransaction));
         }
 
         public Service(
@@ -41,6 +42,7 @@ namespace splendor.net5.core.implementers
             _repository = _serviceProvider.GetService(typeof(IRepository<E, K>)) as IRepository<E, K>;
             _tracer = _serviceProvider.GetService(tracerType) as ITracer;
             _transaction = _serviceProvider.GetService(typeof(TSTransaction)) as ITransaction;
+            ValidateDependencyInjection(tracerType, typeof(TSTransaction));
         }
 
         public Service(
@@ -52,6 +54,17 @@ namespace splendor.net5.core.implementers
             _repository = _serviceProvider.GetService(typeof(IRepository<E, K>)) as IRepository<E, K>;
             _tracer = _serviceProvider.GetService(tracerType) as ITracer;
             _transaction = _serviceProvider.GetService(transactionType) as ITransaction;
+            ValidateDependencyInjection(tracerType, transactionType);
+        }
+
+        private void ValidateDependencyInjection(
+            Type tracerType, 
+            Type transactionType
+        )
+        {
+            if(_repository is null) throw new InvalidOperationException($"No found type \"{typeof(IRepository<E, K>).Name}\" in service provider");
+            if(_tracer is null) throw new InvalidOperationException($"No found type \"{tracerType.Name}\" in service provider");
+            if(_transaction is null) throw new InvalidOperationException($"No found type \"{transactionType.Name}\" in service provider");
         }
 
         protected internal virtual async Task<E> Get(K id) => await _repository.Get(id);
