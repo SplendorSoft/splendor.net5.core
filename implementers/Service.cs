@@ -67,6 +67,7 @@ namespace splendor.net5.core.implementers
             if(_transaction is null) throw new InvalidOperationException($"No found type \"{transactionType.Name}\" in service provider");
         }
 
+        protected ER Repository<ER>() where ER : IRepository<E, K> => (ER) _repository;
         protected internal virtual async Task<E> Get(K id) => await _repository.Get(id);
         protected internal virtual async Task<E> Single(K id) => (await _repository.Single(id)).SingleOrDefault();
         protected internal virtual async Task<List<E>> All() => (await _repository.All()).ToList();

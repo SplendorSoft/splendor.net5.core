@@ -8,9 +8,7 @@ namespace splendor.net5.core.commons
     /// </summary>
     public abstract class TObject
     {
-        [JsonIgnore]
-        public DTrace Trace { get; set; }
-        [JsonIgnore]
-        public bool Valid { get; set; } = true;
+        [JsonIgnore] public DTrace Trace { get; set; }
+        [JsonIgnore] public bool Valid { get; set; } = true;
     }
 }

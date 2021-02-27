@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using splendor.net5.core.commons;
 
@@ -19,21 +20,21 @@ namespace splendor.net5.core.contracts
         /// </summary>
         /// <param name="entity">E entity instance</param>
         /// <returns>Task</returns>
-        Task Add(E entity) => throw new NotImplementedException();
+        Task<E> Add(E entity) => Task.FromResult(entity);
 
         /// <summary>
         /// Edit E entity instance in data store
         /// </summary>
         /// <param name="entity">E entity instance</param>
         /// <returns>Task</returns>
-        Task Edit(E entity) => Task.CompletedTask;
+        Task<E> Edit(E entity) => Task.FromResult(entity);
 
         /// <summary>
         /// Remove E entity instance on data store
         /// </summary>
         /// <param name="entity">E entity instance</param>
         /// <returns>Task</returns>
-        Task Remove(E entity) => throw new NotImplementedException();
+        Task<E> Remove(E entity) => Task.FromResult(entity);
 
         /// <summary>
         /// Return E entity instance from data store by id
