@@ -68,29 +68,29 @@ namespace splendor.net5.core.implementers
         }
 
         protected ER Repository<ER>() where ER : IRepository<E, K> => (ER) _repository;
-        protected internal virtual async Task<E> Get(K id) => await _repository.Get(id);
-        protected internal virtual async Task<E> Single(K id) => (await _repository.Single(id)).SingleOrDefault();
-        protected internal virtual async Task<List<E>> All() => (await _repository.All()).ToList();
-        protected internal virtual async Task<bool> Exists(E entity) => await _repository.Exists(entity);
-        protected internal virtual async Task Add(E entity) => await _repository.Add(entity);
-        protected internal virtual async Task Edit(E entity) => await _repository.Edit(entity);
-        protected internal virtual async Task Remove(E entity) => await _repository.Add(entity);
-        protected internal virtual async Task<List<E>> Page(DPagination pagination)
+        public virtual async Task<E> Get(K id) => await _repository.Get(id);
+        public virtual async Task<E> Single(K id) => (await _repository.Single(id)).SingleOrDefault();
+        public virtual async Task<List<E>> All() => (await _repository.All()).ToList();
+        public virtual async Task<bool> Exists(E entity) => await _repository.Exists(entity);
+        public virtual async Task Add(E entity) => await _repository.Add(entity);
+        public virtual async Task Edit(E entity) => await _repository.Edit(entity);
+        public virtual async Task Remove(E entity) => await _repository.Add(entity);
+        public virtual async Task<List<E>> Page(DPagination pagination)
         => (await _repository.Page(pagination)).ToList();
-        protected internal virtual async Task<long> Count(List<DFilter> filters)
+        public virtual async Task<long> Count(List<DFilter> filters)
         => await _repository.Count(filters);
-        public abstract Task<E> MapEntity(TO to);
-        public abstract TO MapTO(E entity);
-        public virtual Task MapReturnAdd(E entity, TO to) => Task.CompletedTask;
-        public virtual Task MapReturnEdit(E entity, TO to) => Task.CompletedTask;
-        public virtual Task<TO> MapSmartTO(E entity) => Task.FromResult(default(TO));
-        public virtual Task CustomAddValidation(E entity, TO to, ReplyTO<E, TO> reply) => Task.CompletedTask;
-        public virtual Task CustomEditValidation(E entity, TO to, ReplyTO<E, TO> reply) => Task.CompletedTask;
-        public virtual Task IntegrityValidate(E entity, TO to, ReplyTO<E, TO> reply) => Task.CompletedTask;
-        public virtual Task ByAdd(E entity, TO to, ReplyTO<E, TO> reply) => Task.CompletedTask;
-        public virtual Task ByEdit(E entity, TO to, ReplyTO<E, TO> reply) => Task.CompletedTask;
-        public virtual Task ByRemove(E entity, TO to, ReplyTO<E, TO> reply) => Task.CompletedTask;
-        public virtual Task AfterRemove(ReplyTO<E, TO> reply) => Task.CompletedTask;
+        protected abstract Task<E> MapEntity(TO to);
+        protected abstract TO MapTO(E entity);
+        protected virtual Task MapReturnAdd(E entity, TO to) => Task.CompletedTask;
+        protected virtual Task MapReturnEdit(E entity, TO to) => Task.CompletedTask;
+        protected virtual Task<TO> MapSmartTO(E entity) => Task.FromResult(default(TO));
+        protected virtual Task CustomAddValidation(E entity, TO to, ReplyTO<E, TO> reply) => Task.CompletedTask;
+        protected virtual Task CustomEditValidation(E entity, TO to, ReplyTO<E, TO> reply) => Task.CompletedTask;
+        protected virtual Task IntegrityValidate(E entity, TO to, ReplyTO<E, TO> reply) => Task.CompletedTask;
+        protected virtual Task ByAdd(E entity, TO to, ReplyTO<E, TO> reply) => Task.CompletedTask;
+        protected virtual Task ByEdit(E entity, TO to, ReplyTO<E, TO> reply) => Task.CompletedTask;
+        protected virtual Task ByRemove(E entity, TO to, ReplyTO<E, TO> reply) => Task.CompletedTask;
+        protected virtual Task AfterRemove(ReplyTO<E, TO> reply) => Task.CompletedTask;
         public virtual async Task<ReplyTO<E, TO>> GetTO(K id)
         {
             ReplyTO<E, TO> reply = new();
@@ -195,7 +195,6 @@ namespace splendor.net5.core.implementers
             });
             return reply;
         }
-
         public virtual async Task<ReplyTO<E, TO>> RemoveTO(K id, TO to)
         {
             ReplyTO<E, TO> reply = new();
