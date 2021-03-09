@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using splendor.net5.core.commons;
 
@@ -48,7 +47,7 @@ namespace splendor.net5.core.contracts
         /// </summary>
         /// <param name="key">primary key type K</param>
         /// <returns>Queryable instance</returns>
-        Task<IQueryable<E>> Single(K key) => throw new NotImplementedException();
+        Task<IQueryable<E>> Single(K id) => throw new NotImplementedException();
 
         /// <summary>
         /// Return Queryable instance for all instances

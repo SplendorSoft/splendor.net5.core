@@ -8,7 +8,7 @@ namespace splendor.net5.core.commons
     {
         public ReplyTO(): base(){}
         public TO Value { get; set; }
-        public List<TO> Rows { get; set; }
+        public IEnumerable<TO> Rows { get; set; }
         public string Message { get; set; }
         public string Environment { get; set; }
     }

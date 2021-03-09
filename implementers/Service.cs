@@ -70,13 +70,13 @@ namespace splendor.net5.core.implementers
         protected ER Repository<ER>() where ER : IRepository<E, K> => (ER) _repository;
         public virtual async Task<E> Get(K id) => await _repository.Get(id);
         public virtual async Task<E> Single(K id) => (await _repository.Single(id)).SingleOrDefault();
-        public virtual async Task<List<E>> All() => (await _repository.All()).ToList();
+        public virtual async Task<IEnumerable<E>> All() => (await _repository.All()).AsEnumerable();
         public virtual async Task<bool> Exists(E entity) => await _repository.Exists(entity);
         public virtual async Task Add(E entity) => await _repository.Add(entity);
         public virtual async Task Edit(E entity) => await _repository.Edit(entity);
-        public virtual async Task Remove(E entity) => await _repository.Add(entity);
-        public virtual async Task<List<E>> Page(DPagination pagination)
-        => (await _repository.Page(pagination)).ToList();
+        public virtual async Task Remove(E entity) => await _repository.Remove(entity);
+        public virtual async Task<IEnumerable<E>> Page(DPagination pagination)
+        => (await _repository.Page(pagination)).AsEnumerable();
         public virtual async Task<long> Count(List<DFilter> filters)
         => await _repository.Count(filters);
         protected abstract Task<E> MapEntity(TO to);
@@ -111,13 +111,13 @@ namespace splendor.net5.core.implementers
         }
         public virtual async Task<ReplyTO<E, TO>> PageTO(DPagination pagination)
         {
-            List<TO> rows = (await _repository.Page(pagination)).Select(e => MapTO(e)).ToList();
+            IEnumerable<TO> rows = (await _repository.Page(pagination)).AsEnumerable().Select(e => MapTO(e));
             long count = await _repository.Count(pagination.DFilters);
             return new ReplyTO<E, TO> { Rows = rows, Count = count };
         }
-        public virtual async Task<List<TO>> AllTO()
+        public virtual async Task<IEnumerable<TO>> AllTO()
         {
-            return (await _repository.All()).Select(e => MapTO(e)).ToList();
+            return (await _repository.All()).AsEnumerable().Select(e => MapTO(e));
         }
         public virtual async Task<ReplyTO<E, TO>> AddTO(TO to, bool returning = false)
         {
